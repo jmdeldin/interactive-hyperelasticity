@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="{{ url_for('static',
+                                    filename='favicon.ico') }}">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <title>Interactive Hyperelasticity Demo</title>
+    <script type=text/javascript>
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <div class="navbar">
+            <div class="navbar-inner">
+              <a class="brand" href="/">
+                Interactive Hyperelasticity Demo
+              </a>
+            </div><!--//navbar-inner-->
+            <!-- <ul class="nav"> -->
+          </div><!--//navbar-->
+        </div><!--//span12-->
+      </div><!--//row-->
+      <div class="row">
+        <div class="span12">
+        {% with flashes = get_flashed_messages(with_categories=True) %}
+        {% for category, msg in flashes %}
+        {% if category == 'error' %}
+        <div class="alert alert-error">
+          {{ msg}}
+        </div>
+        {% else %}
+        <div class="alert alert-success">
+          {{ msg }}
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endwith %}
+        </div>
+      </div><!--//row-->
+      {% block body %}{% endblock %}
+      <hr/>
+      <footer>
+        <p class="pull-right">
+          Hyperelastic
+          solver <a href="http://fenicsproject.org/documentation/dolfin/dev/python/demo/pde/hyperelasticity/python/documentation.html">adapted
+          from FEniCS</a>.
+        </p>
+        <p>Hyperelasticity demo by Jon-Michael Deldin for CSCI 577 Simulation
+          and Modeling, Spring 2012.</p>
+      </footer>
+    </div><!--//container-->
+  </body>
+</html>

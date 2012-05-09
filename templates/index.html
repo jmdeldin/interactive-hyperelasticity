@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+  <div class="span8">
+    <embed src="{{ url_for('static', filename=filename) }}"
+           type="image/svg+xml"/>
+  </div><!--//span9-->
+  <div class="span4">
+    <form action="/update_plot" method="post">
+      <fieldset class="form-inline">
+        <legend>Dimensions</legend>
+        <div class="control-group">
+          <label>X
+            <input class="span1" id="usq_x" name="usq_x" type="number" min="0"
+                   max="2000" value="{{ _.usq_x }}">
+          </label>
+          <label>Y
+            <input class="span1" id="usq_y" name="usq_y" type="number" min="0"
+                   max="2000" value="{{ _.usq_y }}">
+          </label>
+        </div><!--//control-group-->
+      </fieldset>
+
+      <fieldset class="form-horizontal">
+        <legend>Elasticity Parameters</legend>
+        <div class="control-group">
+          <label for="modulus" class="control-label">Modulus</label>
+          <div class="controls">
+            <input class="span2" id="modulus" name="modulus"
+                   type="number" value="{{ _.modulus }}" step="0.01">
+            <p class="help-block">Blah</p>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="poisson">Poisson ratio</label>
+          <div class="controls">
+            <input class="span2" id="poisson" name="poisson" type="number"
+                   value="{{ _.poisson }}" min="-100" max="2.0" step="0.01">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-inline">
+        <legend>Body Force</legend>
+        <div class="control-group">
+          <label>X
+            <input class="span1" id="body_x" name="body_x" type="number"
+                   min="-100" max="2000" value="{{ _.body_x }}" step="0.01">
+          </label>
+          <label>Y
+            <input class="span1" id="body_y" name="body_y" type="number"
+                   min="-100" max="2000" value="{{ _.body_y }}" step="0.01">
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-inline">
+        <legend>Traction Force</legend>
+        <div class="control-group">
+          <label>X
+            <input class="span1" id="traction_x" name="traction_x" type="number"
+                   min="-100" max="2000" value="{{ _.traction_x }}" step="0.01">
+          </label>
+          <label>Y
+            <input class="span1" id="traction_y" name="traction_y" type="number"
+                   min="-100" max="2000" value="{{ _.traction_y }}" step="0.01">
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-vertical">
+        <legend>
+          Dirichlet Boundaries
+        </legend>
+        <div class="control-group">
+          <label class="control-label" for="left_x">Left X</label>
+          <div class="controls">
+            <input class="input-xlarge" name="left_x" id="left_x" type="input"
+                   value="{{ _.left_x }}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="left_y">Left Y</label>
+          <div class="controls">
+            <input class="input-xlarge" name="left_y" id="left_y" type="input"
+                   value="{{ _.left_y }}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="right_x">Right X</label>
+          <div class="controls">
+            <input class="input-xlarge" name="right_x" id="right_x" type="input"
+                   value="{{ _.right_x }}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="right_y">Right Y</label>
+          <div class="controls">
+            <input class="input-xlarge" name="right_y" id="right_y" type="input"
+                   value="{{ _.right_y }}">
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="form-inline">
+        <legend>
+          Plot Options
+        </legend>
+        <div class="control-group">
+        <label>Contours <input id="contours" name="contours"
+                               value="{{_.contours }}" type="number">
+        </label>
+        </div>
+      </fieldset>
+      <button type="submit" class="btn btn-primary">Plot</button>
+    </form>
+  </div><!--//span4-->
+</div><!--//row-->
+
+{% endblock %}
