@@ -8,7 +8,7 @@ app.debug = True
 # import os; os.urandom(24)
 app.secret_key = '\xcb\x0e={\xa6\x83y1\x04\x87T\x01\xe7\xa2\xc2\xa0\x8e\xc8\xc6\xa5\x84\x18\xaa\x9a'
 
-FILENAME = 'plot.svg'
+FILENAME = 'plot.png'
 
 DEFAULTS = {
     'usq_x':      '10',

@@ -2,14 +2,23 @@
 
 {% block body %}
 <div class="row">
-  <div class="span8">
-    <embed src="{{ url_for('static', filename=filename) }}"
-           type="image/svg+xml"/>
+  <div class="span9">
+    <img src="{{ url_for('static', filename=filename) }}"/>
   </div><!--//span9-->
-  <div class="span4">
-    <form action="/update_plot" method="post">
+  <div class="span3">
+    <p>This demo investigates the impact of material properties in a
+    hyperelasticity equation.</p>
+  </div>
+</div><!--//row-->
+
+<div class="row" style="margin-top: 3em">
+  <form class="" action="/update_plot" method="post">
+    <div class="span3">
       <fieldset class="form-inline">
         <legend>Dimensions</legend>
+        <p class="help-block">
+          These values describe the dimensions of the material.
+        </p>
         <div class="control-group">
           <label>X
             <input class="span1" id="usq_x" name="usq_x" type="number" min="0"
@@ -21,15 +30,17 @@
           </label>
         </div><!--//control-group-->
       </fieldset>
-
-      <fieldset class="form-horizontal">
+      <fieldset>
         <legend>Elasticity Parameters</legend>
         <div class="control-group">
-          <label for="modulus" class="control-label">Modulus</label>
+          <label for="modulus" class="control-label">Young&#8217;s Modulus</label>
           <div class="controls">
             <input class="span2" id="modulus" name="modulus"
                    type="number" value="{{ _.modulus }}" step="0.01">
-            <p class="help-block">Blah</p>
+            <p class="help-block">This is the stiffness of an elastic
+            material. Use a higher value for a stiffer
+            material. <a href="http://en.wikipedia.org/wiki/Young's_modulus">More
+            info</a>.</p>
           </div>
         </div>
         <div class="control-group">
@@ -37,12 +48,25 @@
           <div class="controls">
             <input class="span2" id="poisson" name="poisson" type="number"
                    value="{{ _.poisson }}" min="-100" max="2.0" step="0.01">
+            <p class="help-block">
+              This is a measure of the Poisson effect, which describes how a
+              material tends to expand in the directions perpendicular to the
+              direction of compression (e.g., pressing your finger into a
+              baloon).
+              See <a href="http://en.wikipedia.org/wiki/Poisson's_ratio#Poisson.27s_ratio_values_for_different_materials">this
+              table</a> for a list of values for different materials.
+            </p>
           </div>
+
         </div>
       </fieldset>
-
+    </div><!--//span3-->
+    <div class="span3">
       <fieldset class="form-inline">
         <legend>Body Force</legend>
+        <p class="help-block">
+          This is a a force that acts throughout the volume of a body.
+        </p>
         <div class="control-group">
           <label>X
             <input class="span1" id="body_x" name="body_x" type="number"
@@ -57,6 +81,8 @@
 
       <fieldset class="form-inline">
         <legend>Traction Force</legend>
+        <p class="help-block">This is the pushing/pulling force exerted on an
+        object.</p>
         <div class="control-group">
           <label>X
             <input class="span1" id="traction_x" name="traction_x" type="number"
@@ -68,53 +94,66 @@
           </label>
         </div>
       </fieldset>
+      </div>
 
+      <div class="span3">
       <fieldset class="form-vertical">
         <legend>
           Dirichlet Boundaries
         </legend>
+        <p class="help-block">
+          These describe the values a solution must be at the boundary. To
+          access <i>x</i>, use <code>x[0]</code>. For <i>y</i>,
+          use <code>x[1]</code>. Try
+          using <code>sin(x[0])</code>, <code>cos()</code>, <code>pi</code>,
+          and other values.
+        </p>
         <div class="control-group">
           <label class="control-label" for="left_x">Left X</label>
           <div class="controls">
-            <input class="input-xlarge" name="left_x" id="left_x" type="input"
+            <input class="" name="left_x" id="left_x" type="input"
                    value="{{ _.left_x }}">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="left_y">Left Y</label>
           <div class="controls">
-            <input class="input-xlarge" name="left_y" id="left_y" type="input"
+            <input class="" name="left_y" id="left_y" type="input"
                    value="{{ _.left_y }}">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="right_x">Right X</label>
           <div class="controls">
-            <input class="input-xlarge" name="right_x" id="right_x" type="input"
+            <input class="" name="right_x" id="right_x" type="input"
                    value="{{ _.right_x }}">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="right_y">Right Y</label>
           <div class="controls">
-            <input class="input-xlarge" name="right_y" id="right_y" type="input"
+            <input class="" name="right_y" id="right_y" type="input"
                    value="{{ _.right_y }}">
           </div>
         </div>
       </fieldset>
+      </div>
+      <div class="span3">
       <fieldset class="form-inline">
         <legend>
           Plot Options
         </legend>
+        <p class="help-block">This controls the resolution of the plot. A
+        smaller number results in a coarser plot.</p>
         <div class="control-group">
         <label>Contours <input id="contours" name="contours"
                                value="{{_.contours }}" type="number">
         </label>
         </div>
+        <button type="submit" class="btn btn-primary">Plot</button>
       </fieldset>
-      <button type="submit" class="btn btn-primary">Plot</button>
+      </div>
     </form>
-  </div><!--//span4-->
 </div><!--//row-->
 
 {% endblock %}
