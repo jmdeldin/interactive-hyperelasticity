@@ -2,8 +2,15 @@
 
 {% block body %}
 <div class="row">
-  <div class="span9">
-    <img src="{{ url_for('static', filename=filename) }}"/>
+  <div id="plot_canvas" class="span9">
+    <div class="plot" id="current_plot">
+      <img alt="" src="{{ url_for('static', filename=filename)}}">
+      <p class="caption badge badge-info">current plot (click image for previous)</p>
+    </div>
+    <div id="last_plot" class="plot last">
+      <img alt="" src="{{ url_for('static', filename='last_plot.png') }}">
+      <p class="caption badge badge-info">previous plot (click image for current)</p>
+    </div>
   </div><!--//span9-->
   <div class="span3">
     <p>This demo investigates the impact of material properties in a

@@ -94,14 +94,14 @@ def plot_svg(mesh, u, contours, usq_x, usq_y):
     plt.title('Deformed Shape')
 
     if os.path.isfile('static/plot.png'):
-        os.rename('static/plot.png', 'static/old_plot.png')
+        os.rename('static/plot.png', 'static/last_plot.png')
     plt.savefig('static/plot.png', bbox_inches='tight', transparent=True)
 
 @app.route('/')
 def index():
     return render_template('index.html', filename=FILENAME, _=DEFAULTS)
 
-@app.route('/update_plot', methods=['POST'])
+@app.route('/update_plot', methods=['POST', 'GET'])
 def update_plot():
     get_float = lambda key: request.form.get(key, DEFAULTS[key], type=float)
     get_str   = lambda key: request.form.get(key, DEFAULTS[key], type=str)
@@ -132,7 +132,7 @@ def update_plot():
     except IOError as (errno, errstr):
         flash('Unable to save SVG: %s' % errstr, 'error')
 
-    return render_template('index.html', filename=FILENAME, _=posted)
+    return render_template('index.html', filename=FILENAME, last_file='last_plot.png', _=posted)
 
 if __name__ == '__main__':
     # host=0.0.0.0 lets this run on the network

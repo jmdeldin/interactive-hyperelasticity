@@ -1,0 +1,8 @@
+.caption {
+    font-style: italic;
+    text-align: center;
+}
+
+#plot_canvas {
+    cursor: pointer;
+}
