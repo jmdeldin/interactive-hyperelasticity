@@ -18,6 +18,7 @@ def solve(opts):
     T = (opts['traction_x'], opts['traction_y'])
     c = Expression((opts['left_x'], opts['left_y']))
     r = Expression((opts['right_x'], opts['right_y']))
+    print E
     mesh, u, V = hyper.hyper(mesh_dims=(usq_x, usq_y), E=E, nu=nu, B=B, T=T, c=c, r=r)
     return (mesh, u)
 
@@ -40,13 +41,13 @@ def plot_svg(mesh, u, contours, usq_x, usq_y):
     # hack, since u is 2x size
     z = z[0:xold.shape[0]]
 
-    tri = ax1.tricontourf(xold, yold, triangles, z)
+    tri = ax1.tricontourf(xold, yold, triangles, z, contours)
     fig.colorbar(tri, ax=ax1, orientation='vertical')
     plt.title('Solution')
     # deformation plot
     ax2 = fig.add_subplot(223)
-    ax2.plot(xold, yold, 'k-', label='original')
-    ax2.plot(xnew, ynew, 'r-', alpha=0.6, label='deformed')
+    ax2.plot(xold, yold, 'ko-', label='original')
+    ax2.plot(xnew, ynew, 'ro-', alpha=0.6, label='deformed')
     stackx = np.vstack([xold, xnew])
     stacky = np.vstack([yold, ynew])
     minx = np.min(stackx)-0.25

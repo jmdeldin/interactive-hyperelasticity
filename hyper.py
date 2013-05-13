@@ -1,10 +1,5 @@
-# TODO: include GPL header from demo
 from dolfin import *
 import matplotlib.pyplot as plt
-
-def parse_boundaries(from_str):
-    pass
-    # s = from_str.replace('', '')
 
 def make_mesh_and_funcspace(horiz, vert):
     """Creates mesh and defines function space."""
@@ -28,6 +23,7 @@ def boundaries(V, c, r):
 def get_body_force(x, y):
     """Body force per unit volume"""
     return Constant((x, y))
+
 def get_traction_force(x, y):
     """Traction force on the boundary"""
     return Constant((x, y))
@@ -88,51 +84,6 @@ def do_plot(mesh, u, contours=10, axis=None):
     if axis == None:
         axis = plt.gca()
     return axis.tricontourf(x, y, triangles, z, contours)
-
-# scratch
-# http://fenicsproject.org/documentation/dolfin/1.0.0/python/programmers-reference/functions/function/Function.html
-# def plot_deformation(mesh, u):
-# ux, uy = map(lambda sub: sub.vector().array(), u.split(deepcopy=True))
-# coords = mesh.coordinates().copy()
-# xold, yold = coords[:,0], coords[:,1]
-# xnew, ynew = xold - ux, yold - uy
-
-# plt.plot(xold, yold, 'k-', alpha=0.6)
-# plt.plot(xnew, ynew, 'r-')
-
-# vertices = [
-#     (xold[0], yold[0]), # left, bot
-#     (xold[-5], yold[-5]), # left, top
-#     (xold[-1], yold[-1]), # right, top
-#     (xold[4], yold[4]), # right, bot
-#     # close?
-#     (0.0, 0.0),
-#    ]
-# newverts = [
-#     (xnew[0], ynew[0]), # left, bot
-#     (xnew[-5], ynew[-5]), # left, top
-#     (xnew[-1], ynew[-1]), # right, top
-#     (xnew[4], ynew[4]), # right, bot
-#     # close?
-#     (0.0, 0.0),
-#    ]
-
-# def plot_box(vertices):
-#     codes = [
-#         Path.MOVETO,
-#         Path.LINETO,
-#         Path.LINETO,
-#         Path.LINETO,
-#         Path.CLOSEPOLY,
-#         ]
-#     path = Path(vertices, codes)
-#     fig = plt.figure()
-#     ax = fig.add_subplot(111)
-#     patch = patches.PathPatch(path, facecolor='red', lw=2)
-#     ax.add_patch(patch)
-#     ax.set_xlim(-4,4)
-#     ax.set_ylim(-4,4)
-# plt.show()
 
 if __name__ == '__main__':
     print "running defaults"
